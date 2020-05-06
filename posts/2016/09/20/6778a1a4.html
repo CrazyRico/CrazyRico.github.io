@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/penguin-32px-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/penguin-16px-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="作为一名征战于IT行业多年的程序猴，之前都本着拿来主义的原则，吸收互联网上各种知识，资料文档，很少写过博文分享，真是惭愧，想来也是本人比较懒得原因，最近突然心血来潮，写点什么供大家分享也是极好的，先就将Hexo个人博客搭建于GitHub上作一记录，给想要搭建个人博客的宝宝们一个参考，文采有限，凑合着看吧。 Hexohexo是一款基于Node.js的静态博客框架。目前在GitHub上已有12121">
+<meta name="keywords" content="GitHub,hexo,Git,Node.js,博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo搭建GitHub个人博客系统">
+<meta property="og:url" content="https://crazyrico.com/posts/2016/09/20/6778a1a4.html">
+<meta property="og:site_name" content="疯狂的企鹅">
+<meta property="og:description" content="作为一名征战于IT行业多年的程序猴，之前都本着拿来主义的原则，吸收互联网上各种知识，资料文档，很少写过博文分享，真是惭愧，想来也是本人比较懒得原因，最近突然心血来潮，写点什么供大家分享也是极好的，先就将Hexo个人博客搭建于GitHub上作一记录，给想要搭建个人博客的宝宝们一个参考，文采有限，凑合着看吧。 Hexohexo是一款基于Node.js的静态博客框架。目前在GitHub上已有12121">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://static.nsoft.vip/16-9-19-23595497.jpg">
+<meta property="og:image" content="http://static.nsoft.vip/16-9-19-61999649.jpg">
+<meta property="og:image" content="http://static.nsoft.vip/16-9-19-35826037.jpg">
+<meta property="og:image" content="http://static.nsoft.vip/16-9-19-1580053.jpg">
+<meta property="og:image" content="http://static.nsoft.vip/16-9-19-10705187.jpg">
+<meta property="og:image" content="http://static.nsoft.vip/16-9-19-53990555.jpg">
+<meta property="og:updated_time" content="2019-10-16T08:06:47.605Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo搭建GitHub个人博客系统">
+<meta name="twitter:description" content="作为一名征战于IT行业多年的程序猴，之前都本着拿来主义的原则，吸收互联网上各种知识，资料文档，很少写过博文分享，真是惭愧，想来也是本人比较懒得原因，最近突然心血来潮，写点什么供大家分享也是极好的，先就将Hexo个人博客搭建于GitHub上作一记录，给想要搭建个人博客的宝宝们一个参考，文采有限，凑合着看吧。 Hexohexo是一款基于Node.js的静态博客框架。目前在GitHub上已有12121">
+<meta name="twitter:image" content="http://static.nsoft.vip/16-9-19-23595497.jpg">
+  <link rel="alternate" href="/atom.xml" title="疯狂的企鹅" type="application/atom+xml">
+  <link rel="canonical" href="https://crazyrico.com/posts/2016/09/20/6778a1a4">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Hexo搭建GitHub个人博客系统 | 疯狂的企鹅</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">疯狂的企鹅</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Crazy.Rico's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-links">
+      
+    
+
+    <a href="/links/" rel="section"><i class="menu-item-icon fa fa-fw fa-chain"></i> <br>links</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/crazyrico" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://crazyrico.com/posts/2016/09/20/6778a1a4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Crazy Rico">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://static.nsoft.vip/penguin.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="疯狂的企鹅">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Hexo搭建GitHub个人博客系统
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+		   
+		  <!-- add by alex.yao 2019-10-17 begin -->
+		   
+		  <!-- add by alex.yao 2019-10-17 end -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-20 15:40:21" itemprop="dateCreated datePublished" datetime="2016-09-20T15:40:21+08:00">2016-09-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-16 16:06:47" itemprop="dateModified" datetime="2019-10-16T16:06:47+08:00">2019-10-16</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/其他/" itemprop="url" rel="index"><span itemprop="name">其他</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/其他/博客/" itemprop="url" rel="index"><span itemprop="name">博客</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.7k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>作为一名征战于IT行业多年的程序猴，之前都本着拿来主义的原则，吸收互联网上各种知识，资料文档，很少写过博文分享，真是惭愧，想来也是本人比较懒得原因，最近突然心血来潮，写点什么供大家分享也是极好的，先就将Hexo个人博客搭建于GitHub上作一记录，给想要搭建个人博客的宝宝们一个参考，文采有限，凑合着看吧。</p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>hexo是一款基于Node.js的静态博客框架。目前在GitHub上已有12121 star 和 1953 fork。</p>
+<h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><p>Git是神马，Git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。……不用啰嗦了百度上多有，我们的博客系统是开源与GitHub上的，以及我们最终部署在GitHub上，需要用到Git这个工具。<br>下载对应的系统的版本安装包，我这边以window为例，下载地址：<a href="https://git-scm.com/downloads/" target="_blank" rel="noopener">https://git-scm.com/downloads/</a> 下载到git-xxx.exe安装包双击安装 下一步…下一步…<br>安装完验证Git是否安装正确，cmd打开dos窗口，输入：git –version<br>是否能打印出git版本，正常输出表示安装成功！</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\peekay&gt; git --version</span><br><span class="line">  git version2.9.0.windows.1</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。Node.js 的包管理器 npm，是全球最大的开源库生态系统。<br>hexo是一款基于Node.js的静态博客框架，显然需要Node.js的支持<br>登陆Node.js中文网地址：<a href="http://nodejs.cn/" target="_blank" rel="noopener">http://nodejs.cn/</a> 下载对应系统版本，双击安装 下一步…<br>安装完成，cmd打开dos窗口，输入：node -v 正常输出表示安装成功！</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\peekay&gt; node -v</span><br><span class="line">   v4.4.7</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="注册GitHub账号及设置"><a href="#注册GitHub账号及设置" class="headerlink" title="注册GitHub账号及设置"></a>注册GitHub账号及设置</h2><p>登陆GitHub官网 <a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a> 有账号的使用账号登陆，没有的创建一个，具体不啰嗦，网上教程一堆，下一步下一步注册完成。<br><img src="http://static.nsoft.vip/16-9-19-23595497.jpg" alt=""></p>
+<h3 id="一、设置git的username，email-打开Git目录下的Git-Bash，输入："><a href="#一、设置git的username，email-打开Git目录下的Git-Bash，输入：" class="headerlink" title="一、设置git的username，email,打开Git目录下的Git Bash，输入："></a>一、设置git的username，email,打开Git目录下的Git Bash，输入：</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">"peekay"</span></span><br><span class="line"></span><br><span class="line">$ git config --global user.email <span class="string">"peekay@sina.cn"</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="二、生成秘钥"><a href="#二、生成秘钥" class="headerlink" title="二、生成秘钥"></a>二、生成秘钥</h3><p>在Git Bash 中输入: ssh-keygen 一路回车</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen</span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/c/Users/peeka/.ssh/id_rsa):</span><br><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):</span><br><span class="line">Enter same passphrase again:</span><br><span class="line">Your identification has been saved <span class="keyword">in</span> /c/Users/peeka/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved <span class="keyword">in</span> /c/Users/peeka/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">SHA256:u7Gm0/gYNWECusxcTmryX9BKNeGMUaFmVq3a/7Gjc4U peeka@DESKTOP-ANIM9KS</span><br><span class="line">The key<span class="string">'s randomart image is:</span></span><br><span class="line"><span class="string">+---[RSA 2048]----+</span></span><br><span class="line"><span class="string">|    o.=o         |</span></span><br><span class="line"><span class="string">|   . O ..        |</span></span><br><span class="line"><span class="string">|  . O *.o        |</span></span><br><span class="line"><span class="string">| + X o.+ .       |</span></span><br><span class="line"><span class="string">|. B +o. S  .     |</span></span><br><span class="line"><span class="string">| + ..o.. oE .    |</span></span><br><span class="line"><span class="string">|  . . o+o ..     |</span></span><br><span class="line"><span class="string">|   . .oo=+oo     |</span></span><br><span class="line"><span class="string">|    . o===o.     |</span></span><br><span class="line"><span class="string">+----[SHA256]-----+</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>最终的秘钥文件生成在用户家目录下的.ssh目录下。</p>
+<h3 id="三、将秘钥添加至GitHub"><a href="#三、将秘钥添加至GitHub" class="headerlink" title="三、将秘钥添加至GitHub"></a>三、将秘钥添加至GitHub</h3><p>用之前注册的账号登陆GitHub,Settings-&gt;SSH and GPG keys 点击 New SSH key, 将上一步家目录下.ssh/id_rsa.pub中的内容全部拷贝贴到key栏中，保存<br><img src="http://static.nsoft.vip/16-9-19-61999649.jpg" alt=""></p>
+<h3 id="四、新建仓库用于存放我们的博客"><a href="#四、新建仓库用于存放我们的博客" class="headerlink" title="四、新建仓库用于存放我们的博客"></a>四、新建仓库用于存放我们的博客</h3><p>Createa new repository 这里以 我们的用户名.github.io<br><img src="http://static.nsoft.vip/16-9-19-35826037.jpg" alt=""></p>
+<h2 id="安装Hexo程序"><a href="#安装Hexo程序" class="headerlink" title="安装Hexo程序"></a>安装Hexo程序</h2><p>进入Hexo官网 <a href="http://hexo.io" target="_blank" rel="noopener">http://hexo.io</a> 官网有详细的安装教程，若访问慢或压根打不开，还是国内你懂得，选择一个路径这里我们以E:为例 cmd到E盘，依次执行如下命令</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\peekay&gt;e:</span><br><span class="line">E:\&gt;npm install hexo-cli -g</span><br><span class="line">E:\&gt;hexo init blog</span><br><span class="line">E:\&gt;<span class="built_in">cd</span> blog</span><br><span class="line">E:\blog&gt;npm install</span><br><span class="line">E:\blog&gt;hexo server</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://127.0.0.1:4000/. Press Ctrl+C to stop.</span><br></pre></td></tr></tbody></table></figure>
+
+<p>浏览器访问：<a href="http://127.0.0.1:4000" target="_blank" rel="noopener">http://127.0.0.1:4000</a> 表示Hexo安装成功<br><img src="http://static.nsoft.vip/16-9-19-1580053.jpg" alt=""></p>
+<h2 id="将Hexo发布到GitHub"><a href="#将Hexo发布到GitHub" class="headerlink" title="将Hexo发布到GitHub"></a>将Hexo发布到GitHub</h2><h3 id="配置Hexo"><a href="#配置Hexo" class="headerlink" title="配置Hexo"></a>配置Hexo</h3><p>编辑器打开E盘blog目录下的_config.yml文件</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site  设置站点标题 语言等信息</span></span><br><span class="line">title: Alex.Yao<span class="string">'s Blog</span></span><br><span class="line"><span class="string">subtitle:</span></span><br><span class="line"><span class="string">description:</span></span><br><span class="line"><span class="string">author: Alex.Yao</span></span><br><span class="line"><span class="string">language: zh-Hans</span></span><br><span class="line"><span class="string">timezone:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.....</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Deployment 配置git部署信息</span></span><br><span class="line"><span class="string">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">deploy:</span></span><br><span class="line"><span class="string">type: git</span></span><br><span class="line"><span class="string">repository: https://github.com/yaonew/yaonew.github.io.git</span></span><br><span class="line"><span class="string">branch: master</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="部署Hexo-至GitHub"><a href="#部署Hexo-至GitHub" class="headerlink" title="部署Hexo 至GitHub"></a>部署Hexo 至GitHub</h3><p>cmd进入E盘blog目录 依次执行</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">E:\blog&gt;hexo clean</span><br><span class="line">INFO Deleted database.</span><br><span class="line">E:\blog&gt;hexo generate</span><br><span class="line">    .....</span><br><span class="line">E:\blog&gt;hexo deploy</span><br></pre></td></tr></tbody></table></figure>
+
+<p>OK这样我们的博客系统就已经部署到GitHub上了，设置GitHub Pages<br><img src="http://static.nsoft.vip/16-9-19-10705187.jpg" alt=""><br><img src="http://static.nsoft.vip/16-9-19-53990555.jpg" alt=""><br>这样我们的博客就可以通过 <a href="http://用户名.github.io访问了。" target="_blank" rel="noopener">http://用户名.github.io访问了。</a></p>
+<p>更换博客模版及相关的设置，当你如上的设置都OK的话，应该不难了，有机会我再补充有关模版更换设置等。就这样了，有什么问题可以给我留言。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    </div>
+
+    
+    
+    
+	
+	<!-- add by alex.yao 2019-08-07 begin -->
+	<div>
+    
+      <!-- add 2018-12-29 -->
+<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+    
+    </div>
+    <!-- add by alex.yao 2019-08-07 end -->
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="http://static.nsoft.vip/qrcode_for_tec.jpg" alt="Crazy Rico wechat" style="width: 200px; max-width: 100%;">
+  <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="http://static.nsoft.vip/weixin.png" alt="Crazy Rico 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="http://static.nsoft.vip/alipay.jpg" alt="Crazy Rico 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/GitHub/" rel="tag"># GitHub</a>
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          
+            <a href="/tags/博客/" rel="tag"># 博客</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/posts/2016/09/16/4a17b156.html" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/posts/2016/09/26/344d9fc6.html" rel="prev" title="JavaWeb整合Discuz实现单点登录">
+                JavaWeb整合Discuz实现单点登录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="http://static.nsoft.vip/penguin.png"
+      alt="Crazy Rico">
+  <p class="site-author-name" itemprop="name">Crazy Rico</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/crazyrico" title="GitHub &rarr; https://github.com/crazyrico" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.freecodecamp.cn/crazyrico" title="FCC &rarr; https://www.freecodecamp.cn/crazyrico" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>FCC</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:crazyrico@qq.com" title="E-Mail &rarr; mailto:crazyrico@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://s.imooc.com/ACFNlyI" title="慕课网 &rarr; https://s.imooc.com/ACFNlyI" rel="noopener" target="_blank"><i class="fa fa-fw fa-fire"></i>慕课网</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=gr9asv3c" title="阿里云 &rarr; https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=gr9asv3c" rel="noopener" target="_blank"><i class="fa fa-fw fa-cloud"></i>阿里云</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo"><span class="nav-number">1.</span> <span class="nav-text">Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Git"><span class="nav-number">2.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Node-js"><span class="nav-number">3.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册GitHub账号及设置"><span class="nav-number">4.</span> <span class="nav-text">注册GitHub账号及设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、设置git的username，email-打开Git目录下的Git-Bash，输入："><span class="nav-number">4.1.</span> <span class="nav-text">一、设置git的username，email,打开Git目录下的Git Bash，输入：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、生成秘钥"><span class="nav-number">4.2.</span> <span class="nav-text">二、生成秘钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、将秘钥添加至GitHub"><span class="nav-number">4.3.</span> <span class="nav-text">三、将秘钥添加至GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、新建仓库用于存放我们的博客"><span class="nav-number">4.4.</span> <span class="nav-text">四、新建仓库用于存放我们的博客</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Hexo程序"><span class="nav-number">5.</span> <span class="nav-text">安装Hexo程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将Hexo发布到GitHub"><span class="nav-number">6.</span> <span class="nav-text">将Hexo发布到GitHub</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Hexo"><span class="nav-number">6.1.</span> <span class="nav-text">配置Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署Hexo-至GitHub"><span class="nav-number">6.2.</span> <span class="nav-text">部署Hexo 至GitHub</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">  <a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">苏ICP备17004952号 </a>&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Crazy Rico</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">84k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:16</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+  <!--
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=true&web_id=true"></script>
+  </div>
+  -->
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278118065'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278118065%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function() {
+    var gitalk = new Gitalk({
+      clientID: '9255016b522a1b91949f',
+      clientSecret: 'a0344ceccbd072ddf864ace66c89f73e53bfb671',
+      repo: 'CrazyRico.github.io',
+      owner: 'CrazyRico',
+      admin: ['CrazyRico'],
+      id: '516a35d265e49707e113184afbcbb8c8',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function() {
+    var gitalk = new Gitalk({
+      clientID: '9255016b522a1b91949f',
+      clientSecret: 'a0344ceccbd072ddf864ace66c89f73e53bfb671',
+      repo: 'CrazyRico.github.io',
+      owner: 'CrazyRico',
+      admin: ['CrazyRico'],
+      id: '1e27049d4e7ac3d4dd71c21c10bffc14',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>
