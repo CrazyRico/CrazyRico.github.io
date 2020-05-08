@@ -268,6 +268,176 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://crazyrico.com/posts/2016/09/26/344d9fc6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Crazy Rico">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://static.nsoft.vip/penguin.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="疯狂的企鹅">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+              <a href="/posts/2016/09/26/344d9fc6.html" class="post-title-link" itemprop="url">JavaWeb整合Discuz实现单点登录</a>
+            
+          </h1>
+        
+
+        <div class="post-meta">
+		   
+		  <!-- add by alex.yao 2019-10-17 begin -->
+		   
+		  <!-- add by alex.yao 2019-10-17 end -->
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-26 15:40:21" itemprop="dateCreated datePublished" datetime="2016-09-26T15:40:21+08:00">2016-09-26</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-16 16:06:47" itemprop="dateModified" datetime="2019-10-16T16:06:47+08:00">2019-10-16</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/其他/" itemprop="url" rel="index"><span itemprop="name">其他</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/其他/论坛/" itemprop="url" rel="index"><span itemprop="name">论坛</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>为了丰富员工业余生活，增多交流机会，于是在公司搭建了论坛方便大家灌水，目前公司中企业级应用是基于JAVAEE的产品，论坛选用了比较受欢迎的Discuz 3.2, 为了避免二次登陆使用单点登陆解决，虽然查找了各种资料做集成，但是其中还是遇到了些问题，翻墙发现了：<br><a href="https://code.google.com/p/discuz-ucenter-api-for-java" target="_blank" rel="noopener">discuz-ucenter-api-for-java</a><br>因为被墙，在国内无法访问code.google.com，已将测试代码做了部分调整上传至GitHub:<br><a href="https://github.com/yaonew/discuz-ucenter_api_for_java" target="_blank" rel="noopener">https://github.com/yaonew/discuz-ucenter_api_for_java</a></p>
+<h2 id="第一步配置config-properties"><a href="#第一步配置config-properties" class="headerlink" title="第一步配置config.properties"></a>第一步配置config.properties</h2><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">UC_API = http://你的discuz地址/uc_server  如http://localhost/bbs/uc_server</span><br><span class="line">UC_IP = 正常情况下留空即可</span><br><span class="line">UC_KEY = N3M117R45aWfqfe4xcu0OfTcAT3r4K6f2KRoUOFYT（与ucenter通信的密钥，这里自己设定，需与discuz ucenter 一致）</span><br><span class="line">UC_APPID = 2    //appID为UCenter中应用管理中的ID，见UCenter设置</span><br><span class="line">UC_CONNECT = 正常情况下留空即可</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="第二步-配置web-xml-添加如下"><a href="#第二步-配置web-xml-添加如下" class="headerlink" title="第二步 配置web.xml,添加如下"></a>第二步 配置web.xml,添加如下</h2><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;api&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;com.fivestars.interfaces.bbs.api.UC&lt;/servlet-class&gt;</span><br><span class="line">    &lt;load-on-startup&gt;2&lt;/load-on-startup&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;api&lt;/servlet-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;/api/uc.php&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="第三步-配置ucenter"><a href="#第三步-配置ucenter" class="headerlink" title="第三步 配置ucenter"></a>第三步 配置ucenter</h2><p>管理员登陆UCenter : <a href="http://localhost/bbs/uc_server" target="_blank" rel="noopener">http://localhost/bbs/uc_server</a><br>应用管理-&gt; 添加应用, 这边添加的应用ID，通信秘钥与第一步的配置保持一致<br><img src="http://static.nsoft.vip/16-9-18-7630535.jpg" alt=""><br><img src="http://static.nsoft.vip/16-9-18-57860485.jpg" alt=""><br>配置完成，看到通信成功的信息，表示ucenter集成配置OK<br><img src="http://static.nsoft.vip/16-9-18-19780976.jpg" alt=""></p>
+<h2 id="第四步-访问测试页"><a href="#第四步-访问测试页" class="headerlink" title="第四步 访问测试页"></a>第四步 访问测试页</h2><figure class="highlight jsp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> <span class="keyword">import</span>=<span class="string">"java.util.LinkedList"</span>%&gt;</span><br><span class="line">&lt;%<span class="meta">@page</span> <span class="keyword">import</span>=<span class="string">"com.fivestars.interfaces.bbs.util.XMLHelper"</span>%&gt;</span><br><span class="line">&lt;%<span class="meta">@page</span> <span class="keyword">import</span>=<span class="string">"com.fivestars.interfaces.bbs.client.Client"</span>%&gt;</span><br><span class="line">&lt;%</span><br><span class="line">Client uc = <span class="keyword">new</span> Client();</span><br><span class="line"><span class="comment">//String result1 = uc.uc_user_register("test3", "test3", "test3@huaqi.info");</span></span><br><span class="line"><span class="comment">//out.println("xxx" + result1);</span></span><br><span class="line">String result = uc.uc_user_login(<span class="string">"test3"</span>, <span class="string">"test3"</span>);</span><br><span class="line"></span><br><span class="line">LinkedList&lt;String&gt; rs = XMLHelper.uc_unserialize(result);</span><br><span class="line"><span class="keyword">if</span>(rs.size()&gt;<span class="number">0</span>){</span><br><span class="line">    <span class="keyword">int</span> $uid = Integer.parseInt(rs.get(<span class="number">0</span>));</span><br><span class="line">    String $username = rs.get(<span class="number">1</span>);</span><br><span class="line">    String $password = rs.get(<span class="number">2</span>);</span><br><span class="line">    String $email = rs.get(<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">if</span>($uid &gt; <span class="number">0</span>) {</span><br><span class="line">        response.addHeader(<span class="string">"P3P"</span>,<span class="string">" CP=\"CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR\""</span>);</span><br><span class="line"></span><br><span class="line">        out.println(<span class="string">"登录成功"</span>);</span><br><span class="line">        out.println($username);</span><br><span class="line">        out.println($password);</span><br><span class="line">        out.println($email);</span><br><span class="line"></span><br><span class="line">        String $ucsynlogin = uc.uc_user_synlogin($uid);</span><br><span class="line">        out.println(<span class="string">"登录成功"</span>+$ucsynlogin);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//本地登陆代码</span></span><br><span class="line">        <span class="comment">//TODO ... ....</span></span><br><span class="line">        Cookie auth = <span class="keyword">new</span> Cookie(<span class="string">"auth"</span>, uc.uc_authcode($password+<span class="string">"\t"</span>+$uid, <span class="string">"ENCODE"</span>));</span><br><span class="line">        auth.setMaxAge(<span class="number">31536000</span>);</span><br><span class="line">        <span class="comment">//auth.setDomain("localhost");</span></span><br><span class="line">        response.addCookie(auth);</span><br><span class="line"></span><br><span class="line">        Cookie user = <span class="keyword">new</span> Cookie(<span class="string">"uchome_loginuser"</span>, $username);</span><br><span class="line">        response.addCookie(user);</span><br><span class="line"></span><br><span class="line">    } <span class="keyword">else</span> <span class="keyword">if</span>($uid == -<span class="number">1</span>) {</span><br><span class="line">        out.println(<span class="string">"用户不存在,或者被删除"</span>);</span><br><span class="line">    } <span class="keyword">else</span> <span class="keyword">if</span>($uid == -<span class="number">2</span>) {</span><br><span class="line">        out.println(<span class="string">"密码错"</span>);</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        out.println(<span class="string">"未定义"</span>);</span><br><span class="line">    }</span><br><span class="line">}<span class="keyword">else</span>{</span><br><span class="line">    out.println(<span class="string">"Login failed"</span>);</span><br><span class="line">    System.out.println(result);</span><br><span class="line">} </span><br><span class="line">%&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>访问页面返回一段js：<br>登录成功<br>test3<br>test3<br><a href="mailto:test3@huaqi.info" target="_blank" rel="noopener">test3@huaqi.info</a><br>登录成功</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"http://localhost/api/uc.php?time=1474188863&amp;amp;code=6dfdhvNXKRoUOFYTR3Jn3ORQ2LKDd6cI6X5p4RD3yxyh6gy3%2F%2FQAJ5u8URp7qR%2F%2F0jaIoha2g4MnGRtosanyDihDy%2BIyW0zNNAnjkGHoaC1uyga5U2py%2F6%2F4uolQKBJaVI%2FMsM%2BuFUlttWcSmS7mzQoN%2Be0tzvPFZg2Y"</span> reload=“<span class="number">1</span>”&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>在浏览器中执行后访问 discus已保持登陆状态！</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+          
+        
+      
+    </div>
+
+    
+    
+    
+	
+	<!-- add by alex.yao 2019-08-07 begin -->
+	<div>
+    
+    </div>
+    <!-- add by alex.yao 2019-08-07 end -->
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://crazyrico.com/posts/2016/09/20/6778a1a4.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -637,7 +807,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -872,12 +1042,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">84k</span>
+    <span title="站点总字数">90k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:16</span>
+    <span title="站点阅读时长">1:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
   <span class="post-meta-divider">|</span>
